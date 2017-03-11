@@ -22,6 +22,9 @@ const config = {
     }],
     templating: {
         predefined: 'page',
+        data: {
+            sitename: 'Guay'
+        },
         engines: {
             'tpl.html': {
                 path: path.join(__dirname, '../lib/tpl-engines/lodash'),
