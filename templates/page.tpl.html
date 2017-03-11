@@ -2,11 +2,7 @@
 <html>
 <head>
 
-<!-- http://stackoverflow.com/questions/18819352/what-triggers-the-ie-compatibility-mode-button -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
-<title><%= data.title %></title>
+<%= _.template.partial('html-head', {config, node, data, tree}) %>
 
 <% if (node.ng && node.ng.app) { %><script>
 var app = angular.module('<%= node.ng.app %>', [<%= node.ng.deps %>]);
@@ -18,19 +14,13 @@ var app = angular.module('<%= node.ng.app %>', [<%= node.ng.deps %>]);
 
 <div class="site-wrapper">
 
-    <%= _.template.partial('site-header', {config, node, data, tree}) %>
+<%= _.template.partial('site-header', {config, node, data, tree}) %>
 
-    <header class="page-header">
-        <div class="container"><% if (node.children.length) { %>
-            <nav class="nav-children">
-                <ul class="nav list"><% _.each(node.children, function(node) { %>
-                    <li>&#x21AA; <a href="/<%= data.href %>"><%= node.data.title %></a></li><% }); %>
-                </ul>
-            </nav><% } %>
-        </div>
-    </header>
+    <a name="page-contents"></a>
 
-    <section class="main">
+<%= _.template.partial('page-header', {config, node, data, tree}) %>
+
+    <section class="page-body" role="main">
         <div class="container">
 
 <%= node.$body.html() %>
