@@ -14,6 +14,9 @@ const config = {
         path: path.join(__dirname, '../lib/processors/title'),
         config: {}
     }, {
+        path: path.join(__dirname, '../lib/processors/meta'),
+        config: {}
+    }, {
         path: path.join(__dirname, '../lib/processors/markdown'),
         config: {}
     }],
