@@ -1,0 +1,11 @@
+<header class="site-header">
+    <div class="container">
+        <h1 class="title"><%= data.title %></h1>
+        <nav class="nav-main">
+            <ul class="nav-items">
+                <li><a href="/">Home</a></li><% _.each(tree.children, function(node) { %>
+                <li><a href="/<%= node.data.href %>"><%= node.data.title %></a></li><% }); %>
+            </ul>
+        </nav>
+    </div>
+</header>

@@ -18,17 +18,7 @@ var app = angular.module('<%= node.ng.app %>', [<%= node.ng.deps %>]);
 
 <div class="site-wrapper">
 
-    <header class="site-header">
-        <div class="container">
-            <h1 class="title"><%= data.title %></h1>
-            <nav class="nav-main">
-                <ul class="nav-items">
-                    <li><a href="/">Home</a></li><% _.each(tree, function(node) { if (node.isRoot) { %>
-                    <li><a href="/<%= data.href %>"><%= data.title %></a></li><% }}); %>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <%= _.template.partial('site-header', {config, node, data, tree}) %>
 
     <header class="page-header">
         <div class="container"><% if (node.children.length) { %>
@@ -50,7 +40,7 @@ var app = angular.module('<%= node.ng.app %>', [<%= node.ng.deps %>]);
 
 </div>
 
-<%= _.template.partial('footer', {config, node, data, tree}) %>
+<%= _.template.partial('site-footer', {config, node, data, tree}) %>
 
 </body>
 
