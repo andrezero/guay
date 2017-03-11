@@ -16,17 +16,29 @@ function loadConfig(configFile) {
 
 function readCommandLineOptions() {
     let validCommands = ['develop'];
-    let { command, argv } = commandLineCommands(validCommands);
-
-    let optionDefinitions = [
-      { name: 'loglevel', alias: 'l', type: String },
-      { name: 'config', type: String }
-    ];
-    let args = commandLineArgs(optionDefinitions);
-    return {
-        command,
-        args
-    };
+    try {
+        let { command, argv } = commandLineCommands(validCommands);
+        let optionDefinitions = [
+            { name: 'loglevel', alias: 'l', type: String },
+            { name: 'config', type: String },
+            { name: 'watch', type: Boolean }
+        ];
+        try {
+            let args = commandLineArgs(optionDefinitions);  
+            return {
+                command,
+                args
+            };
+        }
+        catch (err) {
+            console.error(err.message);
+            process.exit();
+        }
+    }
+    catch (err) {
+        console.error(err.message);
+        process.exit();
+    }
 }
 
 const { command, args } = readCommandLineOptions();
@@ -37,7 +49,7 @@ const logger = new Logger('GUAY!', (args.loglevel || config.loglevel) === 'debug
 logger.title(command);
 logger.debug('args', args);
 
-let watcher = new Watcher(config, logger);
+let watcher = args.watch ? new Watcher(config, logger) : null;
 let guay = new Guay(watcher, config, logger);
 
 config.processors.forEach(function (processor) {
@@ -48,7 +60,7 @@ config.processors.forEach(function (processor) {
 for (let extension in config.templating.engines) {
     let engine = config.templating.engines[extension];
     let TemplateEngine = require(engine.path);
-    guay.addTemplateEngine(extension, new TemplateEngine(engine.config, logger));
+    guay.addTemplateEngine(extension, new TemplateEngine(args.watch, engine.config, logger));
 };
 
 config.templating.paths.forEach(function (templatePath) {
