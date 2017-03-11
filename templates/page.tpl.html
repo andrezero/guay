@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+
+<!-- http://stackoverflow.com/questions/18819352/what-triggers-the-ie-compatibility-mode-button -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<title><%= data.title %></title>
+
+<% if (node.ng && node.ng.app) { %><script>
+var app = angular.module('<%= node.ng.app %>', [<%= node.ng.deps %>]);
+</script><% } %>
+
+</head>
+
+<body class="<%= node.$body.attr('class') %>"<% if (node.ng && node.ng.app) { %>ng-app="<%= node.ng.app %>"<% } %>>
+
+<div class="site-wrapper">
+
+    <header class="site-header">
+        <div class="container">
+            <h1 class="title"><%= data.title %></h1>
+            <nav class="nav-main">
+                <ul class="nav-items">
+                    <li><a href="/">Home</a></li><% _.each(tree, function(node) { if (node.isRoot) { %>
+                    <li><a href="/<%= data.href %>"><%= data.title %></a></li><% }}); %>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <header class="page-header">
+        <div class="container"><% if (node.children.length) { %>
+            <nav class="nav-children">
+                <ul class="nav list"><% _.each(node.children, function(node) { %>
+                    <li>&#x21AA; <a href="/<%= data.href %>"><%= node.data.title %></a></li><% }); %>
+                </ul>
+            </nav><% } %>
+        </div>
+    </header>
+
+    <section class="main">
+        <div class="container">
+
+<%= node.$body.html() %>
+
+        </div>
+    </section>
+
+</div>
+
+<%= _.template.partial('footer', {config, node, data, tree}) %>
+
+</body>
+
+</html>

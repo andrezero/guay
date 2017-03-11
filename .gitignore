@@ -1,0 +1,29 @@
+# temp files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.idea
+.idea/*
+*~
+._*
+*.swp
+.Spotlight*
+.Trashes
+npm-debug.log
+.sass-cache
+/logs/
+/bin/
+/tmp/
+
+# dependencies
+/node_modules/
+/vendor/
+
+# builds, tests and docs
+/build/
+/dist/
+/coverage/
+/tmp/
+/var/
+test-results.xml
