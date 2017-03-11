@@ -13,12 +13,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "bunyan": "^1.8.8",
+    "chalk": "^1.1.3",
     "cheerio": "^0.22.0",
     "command-line-args": "^4.0.2",
     "command-line-commands": "^2.0.0",
     "fs-extra-promise": "^0.4.1",
     "gaze": "^1.1.2",
+    "js-beautify": "^1.6.11",
     "lodash": "^4.17.4",
     "markdown-js": "0.0.3",
     "q": "^1.4.1",

@@ -4,13 +4,13 @@ const path = require('path');
 const _ = require('lodash');
 const Watcher = require('./lib/Watcher');
 const Guay = require('./lib/Guay');
+const Logger = require('./lib/Logger');
 
-const bunyan = require('bunyan');
 const commandLineCommands = require('command-line-commands');
 const commandLineArgs = require('command-line-args');
 
-function loadConfig() {
-    const configFile = path.resolve('./gen.config.js');
+function loadConfig(configFile) {
+    configFile = path.resolve(configFile);
     return require(configFile);
 }
 
@@ -30,17 +30,12 @@ function readCommandLineOptions() {
 }
 
 const { command, args } = readCommandLineOptions();
+const config = loadConfig(args.config);
 
-const config = loadConfig();
-let logOptions = {
-    name: 'Guay',
-    level: args.loglevel || config.loglevel
-};
-const logger = bunyan.createLogger(logOptions);
+const logger = new Logger('GUAY!', (args.loglevel || config.loglevel) === 'debug');
 
-logger.debug(config, 'config');
-
-logger.warn(args, command);
+logger.title(command);
+logger.debug('args', args);
 
 let watcher = new Watcher(config, logger);
 let guay = new Guay(watcher, config, logger);
