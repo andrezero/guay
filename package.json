@@ -21,6 +21,7 @@
     "gaze": "^1.1.2",
     "js-beautify": "^1.6.11",
     "lodash": "^4.17.4",
+    "lodash-addons": "^1.0.0",
     "markdown-js": "0.0.3",
     "q": "^1.4.1",
     "queue": "^4.2.1"

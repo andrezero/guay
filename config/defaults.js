@@ -21,6 +21,7 @@ const config = {
     processors: [{
         path: path.join(__dirname, '../lib/processors/title'),
         config: {
+            extension: 'md',
             index: 'index.md'
         }
     }, {
