@@ -1,9 +1,9 @@
 <header class="page-header">
     <div class="container">
-        <h2 class="page-title"><%= data.title %></h2><% if (node.children.length) { %>
+        <h2 class="page-title"><%= node.meta.title %></h2><% if (node.children.length) { %>
         <nav class="nav-children" role="navigation" aria-label="sub-pages">
-            <ul class="nav list"><% _.each(node.children, function(node) { %>
-                <li><a href="<%= node.href %>"><%= node.data.title %></a></li><% }); %>
+            <ul class="nav list"><% _.each(node.children, function(child) { %>
+                <li><a href="<%= child.href %>"><%= child.meta.title %></a></li><% }); %>
             </ul>
         </nav><% } %>
     </div>

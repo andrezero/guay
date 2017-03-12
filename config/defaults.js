@@ -7,9 +7,15 @@ const config = {
     tree: {
         extension: 'md',
         index: 'index.md',
+        meta: {
+            description: 'Generate static sites from markdown'            
+        },
         root: {
             filename: './src/pages/home.md',
-            href: '/'
+            href: '/',
+            meta: {
+                sitename: 'Guay',
+            }
         },
         paths: [{
             path: './src/pages',
@@ -19,24 +25,18 @@ const config = {
         }]
     },
     processors: [{
+        path: path.join(__dirname, '../lib/processors/meta')
+    }, {
         path: path.join(__dirname, '../lib/processors/title'),
         config: {
             extension: 'md',
             index: 'index.md'
         }
     }, {
-        path: path.join(__dirname, '../lib/processors/description')
-    }, {
-        path: path.join(__dirname, '../lib/processors/meta')
-    }, {
         path: path.join(__dirname, '../lib/processors/markdown')
     }],
     templating: {
         predefined: 'page',
-        data: {
-            sitename: 'Guay',
-            description: 'Generate static sites from markdown'
-        },
         engines: {
             'tpl.html': {
                 path: path.join(__dirname, '../lib/tpl-engines/lodash'),

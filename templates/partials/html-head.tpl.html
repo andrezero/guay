@@ -3,6 +3,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-<title><%= data.title %> (<%= data.sitename %>)</title>
-<% if (data.description) { %><meta name="description" value="<%= data.description %>"/>
+<title><%= node.meta.title %> - <%= root.meta.sitename %></title>
+<% if (node.meta.description) { %><meta name="description" value="<%= node.meta.description %>"/>
 <% } %>

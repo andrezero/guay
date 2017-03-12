@@ -2,23 +2,23 @@
 <html>
 <head>
 
-<%= _.template.partial('html-head', {config, node, data, tree}) %>
+<%= _.template.partial('html-head', {config, root, node, meta}) %>
 
-<% if (data.ng && data.ng.app) { %><script>
-var app = angular.module('<%= data.ng.app %>', [<%= data.ng.deps %>]);
+<% if (meta.ng && meta.ng.app) { %><script>
+var app = angular.module('<%= meta.ng.app %>', [<%= meta.ng.deps %>]);
 </script><% } %>
 
 </head>
 
-<body class="<%= node.$body.attr('class') %>"<% if (data.ng && data.ng.app) { %>ng-app="<%= data.ng.app %>"<% } %>>
+<body class="<%= node.$body.attr('class') %>"<% if (meta.ng && meta.ng.app) { %>ng-app="<%= meta.ng.app %>"<% } %>>
 
 <div class="site-wrapper">
 
-<%= _.template.partial('site-header', {config, node, data, tree}) %>
+<%= _.template.partial('site-header', {config, root, node, meta}) %>
 
     <a name="page-contents"></a>
 
-<%= _.template.partial('page-header', {config, node, data, tree}) %>
+<%= _.template.partial('page-header', {config, root, node, meta}) %>
 
     <section class="page-body" role="main">
         <div class="container">
@@ -30,7 +30,7 @@ var app = angular.module('<%= data.ng.app %>', [<%= data.ng.deps %>]);
 
 </div>
 
-<%= _.template.partial('site-footer', {config, node, data, tree}) %>
+<%= _.template.partial('site-footer', {config, root, node, meta}) %>
 
 </body>
 
