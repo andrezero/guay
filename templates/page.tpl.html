@@ -20,13 +20,13 @@ var app = angular.module('<%= meta.ng.app %>', [<%= meta.ng.deps %>]);
 
 <%= _.template.partial('page-header', {config, root, node, meta}) %>
 
-    <section class="page-body" role="main">
+    <main class="page-body" role="main">
         <div class="container">
 
 <%= node.$body.html() %>
 
         </div>
-    </section>
+    </main>
 
 </div>
 
