@@ -25,16 +25,17 @@ const config = {
             index: 'index.md'
         }
     }, {
-        path: path.join(__dirname, '../lib/processors/meta'),
-        config: {}
+        path: path.join(__dirname, '../lib/processors/description')
     }, {
-        path: path.join(__dirname, '../lib/processors/markdown'),
-        config: {}
+        path: path.join(__dirname, '../lib/processors/meta')
+    }, {
+        path: path.join(__dirname, '../lib/processors/markdown')
     }],
     templating: {
         predefined: 'page',
         data: {
-            sitename: 'Guay'
+            sitename: 'Guay',
+            description: 'Generate static sites from markdown'
         },
         engines: {
             'tpl.html': {
