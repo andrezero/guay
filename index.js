@@ -54,6 +54,11 @@ let watcher = args.watch ? new Watcher(logger) : null;
 let scanner = new Scanner(config, logger);
 let guay = new Guay(watcher, scanner, config, logger);
 
+config.indexers.forEach(function (indexer) {
+    let Indexer = require(indexer.path);
+    guay.addIndexer(new Indexer(indexer.config, logger));
+});
+
 config.processors.forEach(function (processor) {
     let Processor = require(processor.path);
     guay.addProcessor(new Processor(processor.config, logger));

@@ -41,6 +41,7 @@ const config = {
     }, {
         path: path.join(__dirname, '../lib/processors/markdown')
     }],
+    indexers: [],
     templating: {
         predefined: 'page',
         engines: {
