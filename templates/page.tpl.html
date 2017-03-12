@@ -4,13 +4,13 @@
 
 <%= _.template.partial('html-head', {config, node, data, tree}) %>
 
-<% if (node.ng && node.ng.app) { %><script>
-var app = angular.module('<%= node.ng.app %>', [<%= node.ng.deps %>]);
+<% if (data.ng && data.ng.app) { %><script>
+var app = angular.module('<%= data.ng.app %>', [<%= data.ng.deps %>]);
 </script><% } %>
 
 </head>
 
-<body class="<%= node.$body.attr('class') %>"<% if (node.ng && node.ng.app) { %>ng-app="<%= node.ng.app %>"<% } %>>
+<body class="<%= node.$body.attr('class') %>"<% if (data.ng && data.ng.app) { %>ng-app="<%= data.ng.app %>"<% } %>>
 
 <div class="site-wrapper">
 
