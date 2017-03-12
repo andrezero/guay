@@ -4,10 +4,6 @@
 
 <%= _.template.partial('html-head', {config, root, node, meta}) %>
 
-<% if (meta.ng && meta.ng.app) { %><script>
-var app = angular.module('<%= meta.ng.app %>', [<%= meta.ng.deps %>]);
-</script><% } %>
-
 </head>
 
 <body class="<%= node.$body.attr('class') %>"<% if (meta.ng && meta.ng.app) { %>ng-app="<%= meta.ng.app %>"<% } %>>
