@@ -17,6 +17,7 @@
     "cheerio": "^0.22.0",
     "command-line-args": "^4.0.2",
     "command-line-commands": "^2.0.0",
+    "dateformat": "^2.0.0",
     "fs-extra-promise": "^0.4.1",
     "gaze": "^1.1.2",
     "js-beautify": "^1.6.11",

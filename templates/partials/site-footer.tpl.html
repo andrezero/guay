@@ -1,5 +1,6 @@
 <footer class="site-footer" role="contentinfo">
     <div class="container">
-        &copy; André Torgal 2017
+        Copyright &copy; <%= root.meta.license.year %> <%= root.meta.author %> 
+        <% if (root.meta.license) { %><a href="<%= root.meta.license.url %>"><%= root.meta.license.name %></a><% } %>
     </div>
 </footer>

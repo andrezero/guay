@@ -15,6 +15,12 @@ const config = {
             href: '/',
             meta: {
                 sitename: 'Guay',
+                author: 'Andre Torgal',
+                license: {
+                    url: 'http://andrezero.mit-license.org/2017',
+                    name: 'MIT License',
+                    year: '2017'
+                }
             }
         },
         paths: [{
