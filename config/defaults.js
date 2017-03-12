@@ -47,7 +47,7 @@ const config = {
     },
     output: {
         path: './build',
-        destination: {
+        files: {
             extension: 'html',
             index: 'index.html'
         },
