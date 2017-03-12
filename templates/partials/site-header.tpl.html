@@ -4,8 +4,8 @@
         <span class="a11y">current page: <%= data.title %>, <a href="#page-contents">skip to page contents</a></span>
         <nav class="nav-main" role="navigation" aria-label="Main sections of the site">
             <ul class="nav-items">
-                <li><a href="/">Home</a></li><% _.each(tree.children, function(node) { %>
-                <li><a href="/<%= node.data.href %>"><%= node.data.title %></a></li><% }); %>
+                <li><a href="<%= tree.href %>">Home</a></li><% _.each(tree.children, function(node) { %>
+                <li><a href="<%= node.href %>"><%= node.data.title %></a></li><% }); %>
             </ul>
         </nav>
     </div>
