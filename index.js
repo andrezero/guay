@@ -2,9 +2,10 @@
 
 const path = require('path');
 const _ = require('lodash');
-const Watcher = require('./lib/Watcher');
-const Guay = require('./lib/Guay');
 const Logger = require('./lib/Logger');
+const Watcher = require('./lib/Watcher');
+const Scanner = require('./lib/Scanner');
+const Guay = require('./lib/Guay');
 
 const commandLineCommands = require('command-line-commands');
 const commandLineArgs = require('command-line-args');
@@ -49,8 +50,9 @@ const logger = new Logger('GUAY!', (args.loglevel || config.loglevel) === 'debug
 logger.title(command);
 logger.debug('args', args);
 
-let watcher = args.watch ? new Watcher(config, logger) : null;
-let guay = new Guay(watcher, config, logger);
+let watcher = args.watch ? new Watcher(logger) : null;
+let scanner = new Scanner(config, logger);
+let guay = new Guay(watcher, scanner, config, logger);
 
 config.processors.forEach(function (processor) {
     let Processor = require(processor.path);

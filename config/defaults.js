@@ -4,15 +4,25 @@ const path = require('path');
 
 const config = {
     loglevel: 'info',
-    source: {
-        paths: ['./src']
-    },
-    pages: {
-        paths: ['./src/pages']
+    tree: {
+        extension: 'md',
+        index: 'index.md',
+        root: {
+            filename: './src/pages/home.md',
+            href: '/'
+        },
+        paths: [{
+            path: './src/pages',
+            href: '/',
+            autoRoot: false,
+            autoIndex: true
+        }]
     },
     processors: [{
         path: path.join(__dirname, '../lib/processors/title'),
-        config: {}
+        config: {
+            index: 'index.md'
+        }
     }, {
         path: path.join(__dirname, '../lib/processors/meta'),
         config: {}
@@ -36,7 +46,15 @@ const config = {
         ]
     },
     output: {
-        path: './build'
+        path: './build',
+        destination: {
+            extension: 'html',
+            index: 'index.html'
+        },
+        href: {
+            extension: 'html',
+            index: ''
+        }
     }
 };
 
