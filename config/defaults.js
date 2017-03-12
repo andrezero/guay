@@ -11,7 +11,7 @@ const config = {
             description: 'Generate static sites from markdown'            
         },
         root: {
-            filename: './src/pages/home.md',
+            filename: './src/content/pages/home.md',
             href: '/',
             meta: {
                 sitename: 'Guay',
@@ -24,7 +24,7 @@ const config = {
             }
         },
         paths: [{
-            path: './src/pages',
+            path: './src/content/pages',
             href: '/',
             autoRoot: false,
             autoIndex: true
