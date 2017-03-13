@@ -6,7 +6,7 @@
 
 </head>
 
-<body class="<%= node.$body.attr('class') %>"<% if (meta.ng && meta.ng.app) { %>ng-app="<%= meta.ng.app %>"<% } %>>
+<body <%= node.$attr %>>
 
 <div class="site-wrapper">
 
