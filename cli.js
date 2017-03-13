@@ -3,7 +3,7 @@
 const path = require('path');
 const _ = require('lodash');
 
-const guay = require('../index');
+const guay = require('./index');
 const Logger = guay.Logger;
 const Watcher = guay.Watcher;
 const Scanner = guay.Scanner;
