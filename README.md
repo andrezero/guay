@@ -11,7 +11,7 @@ documentation and styleguides from markdown files and source code.
 
 ```
 npm install guay
-node ./node_modules/guay/index.js develop --config guay.config.js --loglevel debug --watch
+node ./node_modules/guay/bin/guay.js develop --config guay.config.js --loglevel debug --watch
 ```
 
 

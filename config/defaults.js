@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const guay = require('../index');
 
 const config = {
     loglevel: 'info',
@@ -31,22 +32,22 @@ const config = {
         }]
     },
     processors: [{
-        path: path.join(__dirname, '../lib/processors/meta')
+        plugin: guay.processors.meta
     }, {
-        path: path.join(__dirname, '../lib/processors/title'),
+        plugin: guay.processors.title,
         config: {
             extension: 'md',
             index: 'index.md'
         }
     }, {
-        path: path.join(__dirname, '../lib/processors/markdown')
+        plugin: guay.processors.markdown
     }],
     indexers: [],
     templating: {
         predefined: 'page',
         engines: {
             'tpl.html': {
-                path: path.join(__dirname, '../lib/tpl-engines/lodash'),
+                plugin: guay.tplEngines.lodash,
                 config: {}
             }
         },

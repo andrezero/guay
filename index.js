@@ -1,77 +1,35 @@
 'use strict';
 
-const path = require('path');
-const _ = require('lodash');
-const Logger = require('./lib/Logger');
-const Watcher = require('./lib/Watcher');
-const Scanner = require('./lib/Scanner');
-const Guay = require('./lib/Guay');
-
-const commandLineCommands = require('command-line-commands');
-const commandLineArgs = require('command-line-args');
-
-function loadConfig(configFile) {
-    configFile = path.resolve(configFile);
-    return require(configFile);
+const API = {
+    Node: require('./lib/Node'),
+    Logger: require('./lib/Logger'),
+    Watcher: require('./lib/Watcher'),
+    Scanner: require('./lib/Scanner'),
+    Runner: require('./lib/Runner'),
+    processors: {
+        abstract: require('./lib/processors/abstract'),
+        blogPost: require('./lib/processors/blog-post'),
+        dates: require('./lib/processors/dates'),
+        markdown: require('./lib/processors/markdown'),
+        meta: require('./lib/processors/meta'),
+        tags: require('./lib/processors/tags'),
+        title: require('./lib/processors/title'),
+    },
+    indexers: {
+        byHref: require('./lib/indexers/by-href'),
+        childrenSort: require('./lib/indexers/children-sort'),
+        flatAlpha: require('./lib/indexers/flat-alpha'),
+        flatDateCreated: require('./lib/indexers/flat-date-created'),
+        flatDateUpdated: require('./lib/indexers/flat-date-updated'),
+        flat: require('./lib/indexers/flat'),
+        linkedList: require('./lib/indexers/linked-list'),
+        pruneDrafts: require('./lib/indexers/prune-drafts'),
+        tags: require('./lib/indexers/tags'),
+    },
+    tplEngines: {
+        lodash: require('./lib/tpl-engines/lodash'),
+    },
 }
 
-function readCommandLineOptions() {
-    let validCommands = ['develop'];
-    try {
-        let { command, argv } = commandLineCommands(validCommands);
-        let optionDefinitions = [
-            { name: 'loglevel', alias: 'l', type: String },
-            { name: 'config', type: String },
-            { name: 'watch', type: Boolean }
-        ];
-        try {
-            let args = commandLineArgs(optionDefinitions);  
-            return {
-                command,
-                args
-            };
-        }
-        catch (err) {
-            console.error(err.message);
-            process.exit();
-        }
-    }
-    catch (err) {
-        console.error(err.message);
-        process.exit();
-    }
-}
 
-const { command, args } = readCommandLineOptions();
-const config = loadConfig(args.config);
-
-const logger = new Logger('GUAY!', (args.loglevel || config.loglevel) === 'debug');
-
-logger.title(command);
-logger.debug('args', args);
-
-let watcher = args.watch ? new Watcher(logger) : null;
-let scanner = new Scanner(config, logger);
-let guay = new Guay(watcher, scanner, config, logger);
-
-config.indexers.forEach(function (indexer) {
-    let Indexer = require(indexer.path);
-    guay.addIndexer(new Indexer(indexer.config, logger));
-});
-
-config.processors.forEach(function (processor) {
-    let Processor = require(processor.path);
-    guay.addProcessor(new Processor(processor.config, logger));
-});
-
-for (let extension in config.templating.engines) {
-    let engine = config.templating.engines[extension];
-    let TemplateEngine = require(engine.path);
-    guay.addTemplateEngine(extension, new TemplateEngine(args.watch, engine.config, logger));
-};
-
-config.templating.paths.forEach(function (templatePath) {
-    guay.addTemplatePath(templatePath);
-});
-
-guay.start();
+module.exports = API;
