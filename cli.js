@@ -6,8 +6,9 @@ const _ = require('lodash');
 const guay = require('./index');
 const Logger = guay.Logger;
 const Watcher = guay.Watcher;
-const Scanner = guay.Scanner;
 const Runner = guay.Runner;
+
+console.log('!!');
 
 const commandLineCommands = require('command-line-commands');
 const commandLineArgs = require('command-line-args');
@@ -27,7 +28,7 @@ function readCommandLineOptions() {
             { name: 'watch', type: Boolean }
         ];
         try {
-            let args = commandLineArgs(optionDefinitions);  
+            let args = commandLineArgs(optionDefinitions);
             return {
                 command,
                 args
@@ -52,27 +53,42 @@ const logger = new Logger('GUAY!', (args.loglevel || config.loglevel) === 'debug
 logger.title(command);
 logger.debug('args', args);
 
+
 let watcher = args.watch ? new Watcher(logger) : null;
-let scanner = new Scanner(config, logger);
-let runner = new Runner(watcher, scanner, config, logger);
+let runner = new Runner(watcher, config, logger);
 
-config.indexers.forEach(function (indexer) {
-    let Indexer = indexer.plugin || require(indexer.path);
-    runner.addIndexer(new Indexer(indexer.config, logger));
+logger.debug('- root reader');
+
+let Reader = config.root.plugin || require(config.root.path);
+runner.setRootReader(new Reader(config.root.options, logger));
+
+logger.debug('- plugins');
+
+Object.keys(config.plugins).forEach((type) => {
+    logger.debug('- plugins', type);
+    config.plugins[type].forEach((item, index) => {
+        if (!item.plugin && !item.path) {
+            logger.error('Invalid plugin "' + type + '#' + index + '" configuration.', item);
+            process.exit();
+        }
+        try {
+            let Plugin = item.plugin || require(item.path);
+            runner.addPlugin(type, new Plugin(item.options, logger));
+        }
+        catch (err) {
+            logger.error('Error creating plugin "' + type + '#' + index + '".', item);
+            process.exit();
+        }
+    });
 });
 
-config.processors.forEach(function (processor) {
-    let Processor = processor.plugin || require(processor.path);
-    runner.addProcessor(new Processor(processor.config, logger));
-});
-
-for (let extension in config.templating.engines) {
-    let engine = config.templating.engines[extension];
+for (let extension in config.template.engines) {
+    let engine = config.template.engines[extension];
     let TemplateEngine = engine.plugin || require(engine.path);
-    runner.addTemplateEngine(extension, new TemplateEngine(args.watch, engine.config, logger));
+    runner.addTemplateEngine(extension, new TemplateEngine(args.watch, engine.options, logger));
 };
 
-config.templating.paths.forEach(function (templatePath) {
+config.template.paths.forEach(function (templatePath) {
     runner.addTemplatePath(templatePath);
 });
 

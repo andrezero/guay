@@ -5,133 +5,183 @@ const guay = require('../index');
 
 const config = {
     loglevel: 'info',
-    tree: {
-        extension: 'md',
-        index: 'index.md',
-        meta: {
-            description: 'Generate static sites from markdown'            
-        },
-        root: {
-            filename: './src/content/pages/home.md',
-            href: '/',
-            meta: {
-                sitename: 'Guay',
-                author: 'Andre Torgal',
-                license: {
-                    url: 'http://andrezero.mit-license.org/2017',
-                    name: 'MIT License',
-                    year: '2017'
-                }
-            }
-        },
-        paths: [{
-            path: './src/content/pages',
-            href: '/',
-            autoRoot: false,
-            autoIndex: true
-        }]
+    root: {},
+    plugins: {
+        read: [],
+        process: [],
+        filter: [],
+        index: [],
+        aggregate: [],
+        link: [],
     },
-    indexers: [],
-    processors: [],
-    templating: {
-        predefined: 'page',
-        engines: {
-            'tpl.html': {
-                plugin: guay.tplEngines.lodash,
-                config: {}
-            }
-        },
-        paths: [
-            path.join(__dirname, '../templates/')
-        ]
-    },
-    output: {
-        path: './build',
+    template: {},
+    output: {}
+};
+
+
+// -- root
+
+config.root = {
+    filename: './src/content/index.md',
+    plugin: guay.plugins.read.markdown,
+    options: {
         files: {
-            extension: 'html',
-            index: 'index.html'
+            extension: 'md',
+            index: 'index.md',
         },
-        href: {
-            extension: 'html',
+        url: {
+            base: '/',
+            extension: '',
             index: ''
+        },
+        meta: {
+            sitename: 'Guay',
+            author: 'Andre Torgal',
+            license: {
+                url: 'http://andrezero.mit-license.org/2017',
+                name: 'MIT License',
+                year: (new Date()).getYear()
+            }
         }
     }
 };
 
-// -- processors
 
-config.processors.push({
-    plugin: guay.processors.meta
-});
+// -- plugins
 
-config.processors.push({
-    plugin: guay.processors.title,
-    config: {
-        extension: 'md',
-        index: 'index.md'
+const plugins = config.plugins;
+
+// - read
+
+plugins.read.push({
+    plugin: guay.plugins.read.markdown,
+    options: {
+        files: {
+            extension: 'md',
+            index: 'index.md',
+            path: './src/content/pages',
+            autoRoot: false,
+            autoIndex: true,
+        },
+        url: {
+            base: '/pages',
+            extension: '',
+            index: ''
+        },
+        meta: {
+            description: 'Generate static sites from markdown'
+        }
     }
 });
 
-config.processors.push({
-    plugin: guay.processors.markdown
+// - process
+
+plugins.process.push({
+    plugin: guay.plugins.process.meta
 });
 
-config.processors.push({
-    plugin: guay.processors.abstract
+plugins.process.push({
+    plugin: guay.plugins.process.title
 });
 
-config.processors.push({
-    plugin: guay.processors.tags
+plugins.process.push({
+    plugin: guay.plugins.process.markdown
 });
 
-config.processors.push({
-    plugin: guay.processors.dates
+plugins.process.push({
+    plugin: guay.plugins.process.abstract
 });
 
-config.processors.push({
-    plugin: guay.processors.blogPost
+plugins.process.push({
+    plugin: guay.plugins.process.tags
 });
 
-// -- indexers
-
-config.indexers.push({
-    plugin: guay.indexers.pruneDrafts
+plugins.process.push({
+    plugin: guay.plugins.process.dates
 });
 
-config.indexers.push({
-    plugin: guay.indexers.flat
+plugins.process.push({
+    plugin: guay.plugins.process.blogPost
 });
 
-config.indexers.push({
-    plugin: guay.indexers.childrenSort
+// - filter
+
+plugins.filter.push({
+    plugin: guay.plugins.filter.pruneDrafts
 });
 
-config.indexers.push({
-    plugin: guay.indexers.navChildren
+// - index
+
+plugins.index.push({
+    plugin: guay.plugins.index.flat
 });
 
-config.indexers.push({
-    plugin: guay.indexers.navLinked
+plugins.index.push({
+    plugin: guay.plugins.index.flatAlpha
 });
 
-config.indexers.push({
-    plugin: guay.indexers.flatAlpha
+plugins.index.push({
+    plugin: guay.plugins.index.flatDateCreated
 });
 
-config.indexers.push({
-    plugin: guay.indexers.flatDateCreated
+plugins.index.push({
+    plugin: guay.plugins.index.flatDateUpdated
 });
 
-config.indexers.push({
-    plugin: guay.indexers.flatDateUpdated
+plugins.index.push({
+    plugin: guay.plugins.index.byHref
 });
 
-config.indexers.push({
-    plugin: guay.indexers.byHref
+plugins.index.push({
+    plugin: guay.plugins.index.tags
 });
 
-config.indexers.push({
-    plugin: guay.indexers.tags
+// - aggregate
+
+plugins.aggregate.push({
+    plugin: guay.plugins.aggregate.createTagsNode
 });
+
+plugins.aggregate.push({
+    plugin: guay.plugins.aggregate.createTagNodes
+});
+
+// - link
+
+plugins.link.push({
+    plugin: guay.plugins.link.navChildren
+});
+
+plugins.link.push({
+    plugin: guay.plugins.link.navLinked
+});
+
+
+// -- template
+
+config.template = {
+    predefined: 'page',
+    engines: {
+        'tpl.html': {
+            plugin: guay.plugins.template.lodash,
+            options: {}
+        }
+    },
+    paths: [
+        path.join(__dirname, '../templates/')
+    ]
+};
+
+
+// -- output
+
+// output: {
+//     path: './build',
+//     file: {
+//         extension: 'html',
+//         index: 'index.html'
+//     }
+// }
+
 
 module.exports = config;
