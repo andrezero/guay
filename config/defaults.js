@@ -64,7 +64,7 @@ plugins.read.push({
             autoIndex: true,
         },
         url: {
-            base: '/pages',
+            base: '/',
             extension: '',
             index: ''
         },

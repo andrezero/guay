@@ -20,7 +20,7 @@ const pluginTypes = ['read', 'process', 'filter', 'index', 'aggregate', 'link', 
 
 pluginTypes.forEach((type) => {
     API.plugins[type] = {};
-    scanPlugins(type).forEach((pth) => {
+    scanPlugins(type).forEach(pth => {
         let name = path.basename(pth).replace('.js', '');
         API.plugins[type][name] = require(pth);
     });

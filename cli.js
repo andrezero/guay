@@ -8,8 +8,6 @@ const Logger = guay.Logger;
 const Watcher = guay.Watcher;
 const Runner = guay.Runner;
 
-console.log('!!');
-
 const commandLineCommands = require('command-line-commands');
 const commandLineArgs = require('command-line-args');
 
@@ -53,6 +51,7 @@ const logger = new Logger('GUAY!', (args.loglevel || config.loglevel) === 'debug
 logger.title(command);
 logger.debug('args', args);
 
+logger.header('cli boot');
 
 let watcher = args.watch ? new Watcher(logger) : null;
 let runner = new Runner(watcher, config, logger);
@@ -64,7 +63,7 @@ runner.setRootReader(new Reader(config.root.options, logger));
 
 logger.debug('- plugins');
 
-Object.keys(config.plugins).forEach((type) => {
+Object.keys(config.plugins).forEach(type => {
     logger.debug('- plugins', type);
     config.plugins[type].forEach((item, index) => {
         if (!item.plugin && !item.path) {
