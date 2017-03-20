@@ -88,74 +88,13 @@ plugins.process.push({
     plugin: guay.plugins.process.markdown
 });
 
-plugins.process.push({
-    plugin: guay.plugins.process.abstract
-});
-
-plugins.process.push({
-    plugin: guay.plugins.process.tags
-});
-
-plugins.process.push({
-    plugin: guay.plugins.process.dates
-});
-
-plugins.process.push({
-    plugin: guay.plugins.process.blogPost
-});
-
 // - filter
-
-plugins.filter.push({
-    plugin: guay.plugins.filter.pruneDrafts
-});
 
 // - index
 
-plugins.index.push({
-    plugin: guay.plugins.index.flat
-});
-
-plugins.index.push({
-    plugin: guay.plugins.index.flatAlpha
-});
-
-plugins.index.push({
-    plugin: guay.plugins.index.flatDateCreated
-});
-
-plugins.index.push({
-    plugin: guay.plugins.index.flatDateUpdated
-});
-
-plugins.index.push({
-    plugin: guay.plugins.index.byHref
-});
-
-plugins.index.push({
-    plugin: guay.plugins.index.tags
-});
-
 // - aggregate
 
-plugins.aggregate.push({
-    plugin: guay.plugins.aggregate.createTagsNode
-});
-
-plugins.aggregate.push({
-    plugin: guay.plugins.aggregate.createTagNodes
-});
-
 // - link
-
-plugins.link.push({
-    plugin: guay.plugins.link.navChildren
-});
-
-plugins.link.push({
-    plugin: guay.plugins.link.navLinked
-});
-
 
 // -- template
 
