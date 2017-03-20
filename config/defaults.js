@@ -175,13 +175,11 @@ config.template = {
 
 // -- output
 
-// output: {
-//     path: './build',
-//     file: {
-//         extension: 'html',
-//         index: 'index.html'
-//     }
-// }
+config.output.path = './build';
+config.output.files = {
+    extension: 'html',
+    index: 'index.html'
+};
 
 
 module.exports = config;
