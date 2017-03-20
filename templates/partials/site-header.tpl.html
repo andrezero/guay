@@ -4,7 +4,7 @@
         <span class="a11y">current page: <%= node.meta.title %>, <a href="#page-contents">skip to page contents</a></span>
         <nav class="nav-main" role="navigation" aria-label="Main sections of the site">
             <ul class="nav-items">
-                <li><a href="<%= root.href %>">Home</a></li><% _.each(root.nav.children, function(child) { %>
+                <li><a href="<%= root.href %>">Home</a></li><% let children = root.getNav('children', []); _.each(children, function(child) { %>
                 <li><a href="<%= child.href %>"><%= child.meta.title %></a></li><% }); %>
             </ul>
         </nav>

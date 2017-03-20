@@ -1,8 +1,8 @@
 <header class="page-header">
     <div class="container">
-        <h2 class="page-title"><%= node.meta.title %></h2><% if (node.nav.children.length) { %>
+        <h2 class="page-title"><%= node.meta.title %></h2><% let children = node.getNav('children', []); if (children.length) { %>
         <nav class="nav-children" role="navigation" aria-label="sub-pages">
-            <ul class="nav list"><% _.each(node.meta.children, function(child) { %>
+            <ul class="nav list"><% _.each(children, function(child) { %>
                 <li><a href="<%= child.href %>"><%= child.meta.title %></a></li><% }); %>
             </ul>
         </nav><% } %>
