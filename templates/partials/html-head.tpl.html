@@ -2,11 +2,12 @@
 <!-- http://stackoverflow.com/questions/18819352/what-triggers-the-ie-compatibility-mode-button -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta charset="utf-8">
 
 <title><%= node.meta.title %> - <%= root.meta.sitename %></title>
 <% if (node.meta.description) { %><meta name="description" value="<%= node.meta.description %>"/>
 <% } %>
 <% if (node.meta.dateCreated) { %><meta name="created" content="<%= _.template.dateformat(node.meta.dateCreated, 'yyyy-mm-dd') %>" /><% } %>
 <% if (node.meta.wasUpdated && node.meta.dateUpdated) { %><meta name="last-modified" content="<%= _.template.dateformat(node.meta.dateUpdated, 'yyyy-mm-dd') %>" /><% } %>
-<% if (root.meta.author) { %><meta name="author" content="<%= root.meta.author %>" /><% } %>
+<% if (node.meta.author) { %><meta name="author" content="<%= node.meta.author.name %>" /><% } %>
 <% if (root.meta.license) { %><link rel="license" href="<%= root.meta.license.url %>" /><% } %>

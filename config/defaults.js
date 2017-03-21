@@ -35,12 +35,12 @@ config.root = {
             index: ''
         },
         meta: {
-            sitename: 'Guay',
-            author: 'Andre Torgal',
+            sitename: 'SITE_NAME',
+            author: 'AUTHOR_NAME',
             license: {
                 url: 'http://andrezero.mit-license.org/2017',
                 name: 'MIT License',
-                year: (new Date()).getYear()
+                year: (new Date()).getFullYear()
             }
         }
     }
