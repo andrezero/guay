@@ -1,6 +1,6 @@
 {
   "name": "guay",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Generate static sites from markdown",
   "license": "MIT",
   "homepage": "https://github.com/andrezero/guay",
