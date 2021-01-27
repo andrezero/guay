@@ -2,10 +2,16 @@
 
 > Generate static sites from markdown
 
-Very simple, but fast and modular, static site generator.
+## WARNING: This code is not maintained
 
-This is the first step of a bigger project that comprises a set of tools to generate
-documentation and styleguides from markdown files and source code.
+This project was an exploration at building a simple, fast, and modular, static site generator. 
+
+At the time I was looking at tools that would help maintaining documentation and styleguides 
+generated from markdown files and source code, and not so much [websites](https://andretorgal.com/tags/static-websites/).
+
+For personal/commercial static websites, I recommending looking at the many awesome options in [Jamstack.org](https://jamstack.org/).
+
+For styleguide drive development I recommend looking at [Storybook](https://storybook.js.org/)
 
 ## Getting started
 
